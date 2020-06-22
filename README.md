@@ -39,3 +39,5 @@
 [验证回文数](https://leetcode-cn.com/problems/valid-palindrome/)
 
 [回文子串](https://leetcode-cn.com/problems/palindromic-substrings/)
+
+[增减字符串匹配](https://leetcode-cn.com/problems/di-string-match/)

@@ -1,5 +1,7 @@
 
 
+
+
 # \判断环形链表
 
 ## 方法1 哈希表
@@ -1016,6 +1018,31 @@ class Solution {
                }
         }
         return resNum;
+    }
+}
+```
+
+# 增减字符串匹配
+
+https://leetcode-cn.com/problems/di-string-match/
+
+```
+class Solution {
+    public int[] diStringMatch(String S) {
+          int len=S.length();
+          int N=len;
+          int[] res=new int[len+1];
+          int low=0,high=N;
+          for(int i=0;i<N;i++){
+            if(S.charAt(i)=='I'){
+               res[i]=low++;
+            }else{
+                res[i]=high--;
+            }
+          }
+          //最终都会相遇
+          res[N]=low;
+          return res;
     }
 }
 ```

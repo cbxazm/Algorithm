@@ -2,6 +2,8 @@
 
 
 
+
+
 # \判断环形链表
 
 ## 方法1 哈希表
@@ -281,6 +283,84 @@ public class Solution {
 }
 
 ```
+
+# 三数之和
+
+https://leetcode-cn.com/problems/3sum/solution/javashi-pin-jiang-jie-xi-lie-3-sum-by-sean-kuang/
+
+```
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+         List<List<Integer>> res=new ArrayList<>();
+         if (nums.length<3){
+             return res;
+         }
+        Arrays.sort(nums); //对数组进行排序 -5 1 2 3 4
+          for(int i=0;i<nums.length;i++){
+           if (i>0&&nums[i]==nums[i-1]){
+                  continue;
+              }
+
+              
+               int left=i+1; //左指针
+               int right=nums.length-1; //右指针
+              int target=-nums[i];
+              while (left<right){
+                  if(target==nums[left]+nums[right]){
+                      ArrayList<Integer> list=new ArrayList<>();
+                      list.add(-target);
+                      list.add(nums[left]);
+                      list.add(nums[right]);
+                        res.add(list);
+                      left++;
+                      right--;
+                        while(left<nums.length&&nums[left]==nums[left-1]){
+                      left++;
+                  }
+                  while(right>left&&nums[right]==nums[right+1]){
+                      right--;
+                  }
+                  }else if(target>nums[left]+nums[right]){
+                      left++;
+                  }else{
+                      right--;
+                  }
+              }
+          }
+
+           return res;
+
+    }
+}
+```
+
+
+
+# 最接近的三数之和
+
+## 方法1：暴力解法:三种循环
+
+```
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        int min=nums[0]+nums[1]+nums[2];
+        
+           for(int i=0;i<nums.length;i++){
+                for(int j=i+1;j<nums.length;j++){
+                     for( int k=j+1;k<nums.length;k++){
+                           int sum=nums[i]+nums[j]+nums[k];
+                           if(Math.abs(target-min)>=Math.abs(target-sum)){
+                                 min=sum;
+                           }
+                     }
+                }
+           }
+           return min;
+    }
+}
+```
+
+## 方法2：
 
 # 字符串解码
 

@@ -43,3 +43,5 @@
 [增减字符串匹配](https://leetcode-cn.com/problems/di-string-match/)
 
 [二进制求和](https://leetcode-cn.com/problems/add-binary/solution/er-jin-zhi-qiu-he-by-leetcode-solution/)
+
+[三数之和](https://leetcode-cn.com/problems/3sum/solution/javashi-pin-jiang-jie-xi-lie-3-sum-by-sean-kuang/)

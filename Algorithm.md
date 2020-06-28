@@ -300,8 +300,6 @@ class Solution {
            if (i>0&&nums[i]==nums[i-1]){
                   continue;
               }
-
-              
                int left=i+1; //左指针
                int right=nums.length-1; //右指针
               int target=-nums[i];
@@ -360,7 +358,51 @@ class Solution {
 }
 ```
 
-## 方法2：
+## 方法2：排序+双指针
+
+https://leetcode-cn.com/problems/3sum-closest/solution/zui-jie-jin-de-san-shu-zhi-he-by-leetcode-solution/
+
+```
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+          Arrays.sort(nums);
+        int res=nums[0]+nums[1]+nums[2];
+        for(int i=0;i<nums.length;i++){
+            if(i>0&&nums[i]==nums[i-1]){
+                continue;
+            }
+            int ans=nums[i];
+            int left=i+1;
+            int right=nums.length-1;
+            while(left<right){
+                int sum=nums[i]+nums[left]+nums[right];
+                if(sum==target){
+                    return target;
+                }
+                if(Math.abs(sum-target)<=Math.abs(res-target)){
+                    res=sum;
+                }
+                if(sum>target){
+                    right--;
+                    while (right>left&&nums[right]==nums[right+1]){
+                     right--;
+                    }
+                }else{
+                    left++;
+                    while(left<nums.length&&nums[left]==nums[left-1]){
+                     left++;
+                    }
+                }
+
+                }
+
+            }
+            return res;
+    }
+}
+```
+
+
 
 # 字符串解码
 

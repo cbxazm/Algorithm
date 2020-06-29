@@ -1196,3 +1196,129 @@ public:
 };
 ```
 
+# 长度最小的子数组
+
+## 方法1 暴力解法(self)
+
+```
+package Six;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+
+/**
+ * 长度最小的子数组 [2,3,1,2,4,3] s=7
+ */
+public class SixTwentyNight {
+    public int minSubArrayLen(int s, int[] nums) {
+        if (nums.length==0) return 0;
+        int min=Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+                int sum=nums[i];
+                if(sum>=s){
+                    return 1;
+                }
+                if(sum>s){
+                     continue;
+                }
+                for(int j=i+1;j<nums.length;j++){
+                     sum+=nums[j];
+                     if(sum>=s){
+                         min=Math.min(min,j-i+1);
+                     }else{
+                         continue;
+                     }
+                }
+        }
+        return min==Integer.MAX_VALUE?0:min;
+    }
+
+    public static void main(String[] args) {
+        SixTwentyNight sixTwentyNight=new SixTwentyNight();
+//        int[] nums=new int[]{2,3,1,2,4,3};
+//        int s=7;
+        int s=11;
+        int[] nums={1,2,3,4,5};
+        int i = sixTwentyNight.minSubArrayLen(s, nums);
+        System.out.println(i);
+    }
+}
+
+```
+
+## 方法2 双指针操作
+
+https://leetcode-cn.com/problems/minimum-size-subarray-sum/solution/chang-du-zui-xiao-de-zi-shu-zu-by-leetcode-solutio/
+
+```
+ /**
+     * 双指针操作
+     * @param s
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen(int s, int[] nums) {
+        int n=nums.length;
+        if(n==0){
+             return 0;
+        }
+        int ans=Integer.MAX_VALUE;
+        int start=0,end=0;
+        int sum=0;
+        while(end<n){
+            sum+=nums[end];
+            while(sum>=s){
+                ans=Math.min(ans,end-start+1);
+                sum-=nums[start];
+                start++;
+            }
+            end++;
+        }
+        return ans==Integer.MAX_VALUE?0:ans;
+```
+
+## 方法3 二分法+前缀和
+
+```
+import java.util.Arrays;
+
+public class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        int ans = Integer.MAX_VALUE;
+        int[] sums = new int[n + 1];
+        // 为了方便计算，令 size = n + 1
+        // sums[0] = 0 意味着前 0 个元素的前缀和为 0
+        // sums[1] = A[0] 前 1 个元素的前缀和为 A[0]
+        // 以此类推
+        for (int i = 1; i <= n; i++) {
+            sums[i] = sums[i - 1] + nums[i - 1];
+        }
+        for (int i = 1; i <= n; i++) {
+            int target = s + sums[i - 1];
+            int bound = Arrays.binarySearch(sums, target);
+            if (bound < 0) {
+                bound = -bound - 1;
+            }
+            if (bound <= n) {
+                ans = Math.min(ans, bound - (i - 1));
+            }
+        }
+        return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
+
+    public static void main(String[] args) {
+        int[] nums={2,3,1,2,4,3};
+        int s=7;
+        Solution solution=new Solution();
+        int i = solution.minSubArrayLen(s, nums);
+        System.out.println(i);
+    }
+
+}
+
+```
+
